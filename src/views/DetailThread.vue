@@ -58,8 +58,27 @@
             </v-row>
             <!-- rep cmt -->
             <v-row>
-              
+              <v-divider color="black" class="my-10"></v-divider>
             </v-row>
+            <div style="margin: 20px">
+              <h4>Trả lời:</h4>
+              <!-- <v-textarea
+                solo
+                color="primary"
+                name="input-7-4"
+                label="Trả lời"
+                v-model="repCmt"
+              ></v-textarea> -->
+              <vue-editor v-model="repCmt"></vue-editor>
+              <div
+                style="display: flex; flex-direction: row-reverse"
+                class="mt-2 pr-4"
+              >
+                <v-btn color="primary" @click="_clickSubmit()" elevation="2"
+                  >Thêm bình luận</v-btn
+                >
+              </div>
+            </div>
           </v-col>
           <v-col cols="4" class="mt-3">
             <v-banner></v-banner>
@@ -71,26 +90,28 @@
 </template>
 
 <script>
-const commentsMapper= [
+const commentsMapper = [
   {
-    cmt:"Winner phát card đi."
+    cmt: "Winner phát card đi.",
   },
   {
-    cmt:"Like cho chủ thớt."
+    cmt: "Like cho chủ thớt.",
   },
   {
-    cmt:"Nên đợi tới năm sau, vì cart giờ mắc"
+    cmt: "Nên đợi tới năm sau, vì phụ kiện giờ mắc",
   },
   {
-    cmt:"Bài viết tâm huyết quá."
+    cmt: "Bài viết tâm huyết quá.",
   },
-]
+];
 import { mapState } from "vuex";
 import VBanner from "../components/home/vBanner.vue";
 import VBoxChat from "../components/thread/vBoxChat.vue";
 import VBoxRep from "../components/thread/vBoxRep.vue";
+import moment from "moment";
+import { VueEditor } from "vue2-editor";
 export default {
-  components: { VBanner, VBoxChat, VBoxRep },
+  components: { VBanner, VBoxChat, VBoxRep, VueEditor },
   name: "Home",
   data: () => ({
     breadcrumbs: [
@@ -110,6 +131,7 @@ export default {
       },
     ],
     comment: [],
+    repCmt: "",
   }),
   computed: {
     ...mapState("forums", ["posts"]),
@@ -127,7 +149,18 @@ export default {
       .catch((err) => {
         console.log(err);
       });
-  }
+  },
+  methods: {
+    _clickSubmit() {
+      this.comment.push({
+        cmt: this.repCmt,
+        name: "Thanh La",
+        date: moment().format("DD/MM/YYYY"),
+        time: moment().format("LT"),
+      });
+      this.repCmt = "";
+    },
+  },
 };
 </script>
 
