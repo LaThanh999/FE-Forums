@@ -18,8 +18,8 @@
                 <v-sheet class="box-info">
                   <v-avatar class="mb-4" color="grey darken-1" size="80">
                     <img
-                      src="https://cdn.vuetifyjs.com/images/john.jpg"
-                      alt="John"
+                      src="https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png"
+                      :alt="posts.name"
                   /></v-avatar>
                   <div style="color: #ffffff">{{ posts.name }}</div>
                   <v-row class="ma-0 mt-2" style="color: #ffffff">
@@ -46,8 +46,8 @@
                 <v-sheet class="box-info">
                   <v-avatar class="mb-4" color="grey darken-1" size="80">
                     <img
-                      src="https://cdn.vuetifyjs.com/images/john.jpg"
-                      alt="John"
+                      src="https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png"
+                      :alt="item.name"
                   /></v-avatar>
                   <div style="color: #ffffff">{{ item.name }}</div>
                 </v-sheet>
@@ -118,12 +118,12 @@ export default {
       {
         text: "Trang chủ",
         disabled: false,
-        href: "/",
+        to: "/",
       },
       {
         text: "Mục",
         disabled: false,
-        href: "/thread",
+        to: "/thread",
       },
       {
         text: "Bài đăng",

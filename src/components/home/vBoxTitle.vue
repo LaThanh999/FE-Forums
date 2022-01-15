@@ -1,10 +1,10 @@
 <template>
   <v-img
     height="200px"
-    src="https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg"
+    src="https://vnn-imgs-f.vgcloud.vn/2021/08/19/00/iphone-13-pro-voi-mau-sunset-gold-du-bao-se-gay-sot-1.jpg"
   >
     <div class="box">
-      <div class="mb-3 text1">Iphone 4 đang trở nên hot hòn hợt</div>
+      <div class="mb-3 text1">Iphone 13 đang trở nên hot hòn hợt</div>
       <v-row class="align-center">
         <v-icon color="#EFD0A2" class="ml-2">mdi-account</v-icon>
         <div class="text2 ml-3">Nguyễn Văn A</div>

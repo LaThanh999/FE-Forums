@@ -56,7 +56,7 @@ export default {
       {
         text: "Trang chủ",
         disabled: false,
-        href: "/",
+        to: "/",
       },
       {
         text: "Mục",

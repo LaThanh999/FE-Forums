@@ -21,7 +21,7 @@
     </v-btn-toggle>
     <v-spacer></v-spacer>
     <v-btn icon>
-      <v-icon>mdi-account</v-icon>
+      <v-icon @click="_onClickToAdmin()">mdi-account</v-icon>
     </v-btn>
   </v-app-bar>
 </template>
@@ -47,6 +47,11 @@ export default {
       const data = localStorage.getItem("userInfo");
       this.user = JSON.parse(data);
     },
+    _onClickToAdmin() {
+      const url =
+        "https://fe-forumst-admin.netlify.app/access/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NTdGF1cyI6MCwiYWNjSWQiOjEsImlhdCI6MTY0MjI3NDU1MiwiZXhwIjoxNjQyMzYwOTUyfQ.bdSi-VfFvWnx69L3WIrVzLZvJ0M4H6mlhQbWvVodLtw/1/2DNrlmxAYgrni4ysV2Zbb4rOkbtaT0so29KFKSYAwpc4w8Jggzoo0LEsfPOFcSkY3UrGT3DP299C9RAEepxEGC1QBSdRkwJrIIQ1";
+      window.location.href = url;
+    }
   },
 };
 </script>
