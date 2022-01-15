@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app absolute elevate-on-scroll color="primary">
+  <v-app-bar app fixed color="primary">
     <v-text-field
       style="margin-top: 25px"
       background-color="white"
