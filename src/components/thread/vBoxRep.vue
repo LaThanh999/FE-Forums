@@ -5,11 +5,13 @@
         <div style="font-size: 18px; color: #ffffff">Trả lời</div>
       </v-col>
       <v-col cols="2">
-        <div style="font-size: 12px; color: #ffffff">20/12/2020</div>
+        <div style="font-size: 12px; color: #ffffff">
+          {{ post.date }} {{ post.time }}
+        </div>
       </v-col>
     </v-row>
     <v-row class="box-body" style="min-height: 100px">
-      <div v-html="contentHtml"></div>
+      <div v-html="post.cmt"></div>
     </v-row>
   </div>
 </template>
@@ -19,6 +21,7 @@ export default {
   data: () => ({
     contentHtml: "<h1>ABC</h1>",
   }),
+  props: ["post"],
 };
 </script>
 

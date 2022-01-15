@@ -44,8 +44,10 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import VBanner from "../components/home/vBanner.vue";
 import VBoxThread from "../components/thread/vBoxThread.vue";
+
 export default {
   components: { VBanner, VBoxThread },
   name: "Home",
@@ -57,29 +59,19 @@ export default {
         href: "/",
       },
       {
-        text: "Điện thoại",
+        text: "Mục",
         disabled: true,
       },
     ],
   }),
+  computed: {
+    ...mapState("forums", ["threads"]),
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .body {
   background: #9e9e9e75;
-}
-.body-title {
-  // height: 59px;
-  // background: #38761d;
-  // border: 1px;
-  // p {
-  //   margin-left: 20px;
-  //   font-family: Lato;
-  //   font-style: normal;
-  //   font-weight: normal;
-  //   font-size: 36px;
-  //   color: rgba(255, 255, 255, 0.85);
-  // }
 }
 </style>

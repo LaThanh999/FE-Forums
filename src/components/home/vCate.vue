@@ -2,43 +2,47 @@
   <div>
     <v-row class="align-center justify-center box-title">
       <v-col cols="7">
-        <div style="font-size: 24px; color: #ffffff">Máy tính</div>
+        <div style="font-size: 24px; color: #ffffff">{{ nameCate }}</div>
       </v-col>
       <v-col cols="5">
         <div style="font-size: 24px; color: #ffffff">Chủ đề mới</div>
       </v-col>
     </v-row>
-    <div v-for="n in 4" :key="n">
+    <div v-for="(temp, index) in item" :key="index">
       <v-row
         class="box-body align-center justify-center"
-        v-bind:class="{ 'box-body1': n % 2 == 0 }"
+        v-bind:class="{ 'box-body1': index % 2 == 0 }"
       >
-        <v-col cols="4" style="display: flex; align-items: center">
+        <v-col
+          cols="4"
+          style="display: flex; align-items: center; cursor: pointer"
+          @click="_clickToThread(temp)"
+        >
           <v-icon class="mr-2">mdi-air-filter</v-icon>
-          <p class="text1">Điều chỉnh cấu hình</p>
+          <p class="text1">{{ temp.body }}</p>
         </v-col>
         <v-col cols="1">
           <div class="text3">
-            23k
+            {{ temp.thread }}k
             <div class="text2">thread</div>
           </div>
         </v-col>
         <v-col cols="2"
           ><div>
-            500.000
+            {{ temp.post }}
             <div class="text2">Post</div>
           </div>
         </v-col>
         <v-col cols="5">
-          <div class="text4">Điều chỉnh cấu hình máy</div>
+          <div class="text4">{{ temp.content }}</div>
           <v-row>
             <v-col cols="4" style="color: #000000; display: flex">
               <v-icon>mdi-account</v-icon>
-              <div>UserA</div>
+              <div>{{ temp.name }}</div>
             </v-col>
             <v-col cols="8" style="color: #000000; display: flex">
               <v-icon>mdi-clock</v-icon>
-              <div>31/12/2022 8:00AM</div>
+              <div>{{ temp.date }} {{ temp.time }}</div>
             </v-col>
           </v-row>
         </v-col>
@@ -48,7 +52,18 @@
 </template>
 
 <script>
-export default {};
+import { mapActions } from "vuex";
+export default {
+  props: ["item", "nameCate"],
+  methods: {
+    ...mapActions("forums", ["setThread"]),
+    _clickToThread(val) {
+      this.setThread(val);
+      console.log(this);
+      this.$router.push({ path: `thread`, query: { id: val.id } });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

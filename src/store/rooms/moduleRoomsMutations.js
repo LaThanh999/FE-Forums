@@ -1,5 +1,5 @@
 export default {
-  GET_ROOMS(state, payload) {
-    state.rooms = payload.rooms;
+  SET_THREAD(state, payload) {
+    state.thread = payload;
   },
 };

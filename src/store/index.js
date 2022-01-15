@@ -7,6 +7,7 @@ import users from "./users/moduleUsers";
 import customers from "./customers/moduleCustomers";
 import book from "./book/moduleBook";
 import payment from "./payment/modulePayment";
+import forums from "./forums/module";
 
 Vue.use(Vuex);
 
@@ -22,5 +23,6 @@ export default new Vuex.Store({
     customers,
     book,
     payment,
+    forums,
   },
 });

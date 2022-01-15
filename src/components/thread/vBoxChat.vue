@@ -2,19 +2,23 @@
   <div>
     <v-row class="align-center justify-center box-title">
       <v-col cols="10">
-        <div style="font-size: 24px; color: #ffffff">Chủ đề</div>
+        <div style="font-size: 24px; color: #ffffff">
+          {{ post.body }}
+        </div>
       </v-col>
       <v-col cols="2">
-        <div style="font-size: 12px; color: #ffffff">20/12/2020</div>
+        <div style="font-size: 12px; color: #ffffff">
+          {{ post.date }} {{ post.time }}
+        </div>
       </v-col>
     </v-row>
     <v-row class="box-body" style="min-height: 200px">
-      <div v-html="contentHtml"></div>
+      <div v-html="post.contentFull"></div>
     </v-row>
     <v-row class="box-body box-body1 align-center justify-center">
       <v-col cols="9">
-        <v-chip>ABC</v-chip>
-        <v-chip>ABC</v-chip>
+        <v-chip>Máy tính</v-chip>
+        <v-chip>Công cụ</v-chip>
       </v-col>
       <v-col cols="3" style="display: flex">
         <div class="mr-2">
@@ -35,6 +39,7 @@ export default {
   data: () => ({
     contentHtml: "<h1>ABC</h1>",
   }),
+  props: ["post"],
 };
 </script>
 
