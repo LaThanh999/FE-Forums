@@ -4,22 +4,22 @@ export const menu1 = [
     title: "Trang chủ",
   },
   {
-    icon: "mdi-home",
+    icon: "mdi-apps",
     title: "Câu hỏi đã đăng",
   },
   {
-    icon: "mdi-home",
+    icon: "mdi-tab",
     title: "Các tab nổi bật",
   },
 ];
 
 export const menu2 = [
   {
-    icon: "mdi-home",
+    icon: "mdi-comment-quote",
     title: "Câu trả lời",
   },
   {
-    icon: "mdi-home",
+    icon: "mdi-heart",
     title: "Xem danh sách vote",
   },
 ];
