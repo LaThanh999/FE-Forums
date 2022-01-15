@@ -17,7 +17,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="8">
+          <v-col cols="9">
             <div class="body-title">
               <p>Danh sách các chuyên mục</p>
             </div>
@@ -25,7 +25,7 @@
             <div class="my-2"></div>
             <v-cate :item="san_pham" nameCate="Sản phẩm và công nghệ"></v-cate>
           </v-col>
-          <v-col cols="4" class="mt-3">
+          <v-col cols="3" class="mt-3">
             <v-banner></v-banner>
             <div style="margin-top: 50px"></div>
             <v-banner></v-banner>

@@ -12,7 +12,7 @@
           </v-row>
         </v-row>
         <v-row>
-          <v-col cols="8">
+          <v-col cols="9">
             <v-row>
               <v-col cols="3" class="pr-0">
                 <v-sheet class="box-info">
@@ -80,7 +80,7 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="4" class="mt-3">
+          <v-col cols="3" class="mt-3">
             <v-banner></v-banner>
           </v-col>
         </v-row>

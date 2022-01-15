@@ -2,6 +2,7 @@ export const menu1 = [
   {
     icon: "mdi-home",
     title: "Trang chủ",
+    to: "/",
   },
   {
     icon: "mdi-apps",
