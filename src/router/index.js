@@ -17,49 +17,17 @@ const routes = [
         },
       },
       {
-        path: "/rooms",
-        name: "Rooms",
-        component: () => import("../views/rooms/Rooms"),
+        path: "/thread",
+        name: "Thread",
+        component: () => import("../views/Thread"),
         meta: {
           requireAuth: true,
         },
       },
       {
-        path: "/roomsType",
-        name: "RoomsType",
-        component: () => import("../views/roomsType/roomTypes"),
-        meta: {
-          requireAuth: true,
-        },
-      },
-      {
-        path: "/users",
-        name: "Users",
-        component: () => import("../views/users/users"),
-        meta: {
-          requireAuth: true,
-        },
-      },
-      {
-        path: "/customers",
-        name: "Customer",
-        component: () => import("../views/customers/Customers"),
-        meta: {
-          requireAuth: true,
-        },
-      },
-      {
-        path: "/book-room",
-        name: "Book Room",
-        component: () => import("../views/bookRoom/BookRoom"),
-        meta: {
-          requireAuth: true,
-        },
-      },
-      {
-        path: "/payment",
-        name: "Payment",
-        component: () => import("../views/payment/payment"),
+        path: "/detail-thread",
+        name: "Detail-Thread",
+        component: () => import("../views/DetailThread"),
         meta: {
           requireAuth: true,
         },

@@ -15,7 +15,7 @@
     </v-list>
     <div class="title">Cá nhân</div>
     <v-list dense nav>
-      <v-list-item-group v-model="selectedItem" color="primary">
+      <v-list-item-group color="primary">
         <v-list-item v-for="(item, i) in items2" :key="i" :to="item.to">
           <v-list-item-icon>
             <v-icon v-text="item.icon"></v-icon>
