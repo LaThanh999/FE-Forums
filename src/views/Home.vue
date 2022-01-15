@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import VBanner from "../components/home/vBanner.vue";
 import vBoxTitle from "../components/home/vBoxTitle.vue";
 import VCate from "../components/home/vCate.vue";
@@ -93,6 +94,7 @@ export default {
     san_pham: [],
   }),
   mounted() {
+    this.setLoading(true);
     this.axios
       .get("may-tinh.json")
       .then(({ data }) => {
@@ -104,6 +106,9 @@ export default {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        this.setLoading(false);
       });
     // line
     this.axios
@@ -117,9 +122,17 @@ export default {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        this.setLoading(false);
       });
   },
-  methods: {},
+  methods: {
+    ...mapActions("loading", ["setLoading"]),
+    getMayTinh(){
+      
+    }
+  },
 };
 </script>
 

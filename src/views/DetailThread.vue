@@ -104,7 +104,7 @@ const commentsMapper = [
     cmt: "Bài viết tâm huyết quá.",
   },
 ];
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import VBanner from "../components/home/vBanner.vue";
 import VBoxChat from "../components/thread/vBoxChat.vue";
 import VBoxRep from "../components/thread/vBoxRep.vue";
@@ -137,6 +137,7 @@ export default {
     ...mapState("forums", ["posts"]),
   },
   mounted() {
+    this.setLoading(true);
     this.axios
       .get("may-tinh.json")
       .then(({ data }) => {
@@ -148,17 +149,25 @@ export default {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        this.setLoading(false);
       });
   },
   methods: {
+    ...mapActions("loading", ["setLoading"]),
     _clickSubmit() {
-      this.comment.push({
-        cmt: this.repCmt,
-        name: "Thanh La",
-        date: moment().format("DD/MM/YYYY"),
-        time: moment().format("LT"),
-      });
-      this.repCmt = "";
+      this.setLoading(true);
+      setTimeout(() => {
+        this.comment.push({
+          cmt: this.repCmt,
+          name: "Thanh La",
+          date: moment().format("DD/MM/YYYY"),
+          time: moment().format("LT"),
+        });
+        this.repCmt = "";
+        this.setLoading(false);
+      }, 2000);
     },
   },
 };

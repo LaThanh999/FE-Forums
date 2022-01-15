@@ -51,15 +51,17 @@
         </v-col>
       </v-footer>
     </v-main>
+    <v-loading></v-loading>
   </section>
 </template>
 
 <script>
 import VSideBar from "../../components/sideBar/vSideBar";
 import VNavBar from "../../components/navBar/vNavBar";
+import VLoading from '../../components/vLoading.vue';
 export default {
   name: "Main",
-  components: { VNavBar, VSideBar },
+  components: { VNavBar, VSideBar, VLoading },
   data: () => ({}),
   methods: {
     clickToHome() {

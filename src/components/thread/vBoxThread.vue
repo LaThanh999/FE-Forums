@@ -74,6 +74,7 @@ export default {
     ...mapState("forums", ["threads"]),
   },
   mounted() {
+    this.setLoading(true);
     this.axios
       .get("may-tinh.json")
       .then(({ data }) => {
@@ -85,10 +86,14 @@ export default {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        this.setLoading(false);
       });
   },
   methods: {
     ...mapActions("forums", ["setPost"]),
+    ...mapActions("loading", ["setLoading"]),
     _clickToPage(val) {
       this.setPost(val);
       this.$router.push({

@@ -5,10 +5,11 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "vLoading",
-  props: {
-    loading: Boolean,
+  computed: {
+    ...mapState("loading", ["loading"]),
   },
 };
 </script>
