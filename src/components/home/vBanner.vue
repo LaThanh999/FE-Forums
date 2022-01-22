@@ -20,8 +20,8 @@
         ><v-img
           contain
           class="grey darken-4"
-          :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
-          :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+          :src="`https://picsum.photos/500/300?image=${(x + n) * 5 + 10}`"
+          :lazy-src="`https://picsum.photos/10/6?image=${(x + n) * 5 + 10}`"
         ></v-img>
       </v-col>
     </v-row>
