@@ -3,16 +3,13 @@
     <v-item-group>
       <v-container>
         <v-row>
-          <v-col v-for="n in 4" :key="n" cols="12" md="3">
+          <v-col v-for="(item, index) in banners" :key="index" cols="12" md="3">
             <v-item v-slot="{ active, toggle }">
-              <v-card
-                :color="active ? 'primary' : ''"
-                class="d-flex align-center"
-                height="200"
-                @click="toggle"
-              >
-                <v-box-title></v-box-title>
-              </v-card>
+              <v-box-title
+                :active="active"
+                :toggle="toggle"
+                :post="item"
+              ></v-box-title>
             </v-item>
           </v-col>
         </v-row>
@@ -24,11 +21,14 @@
             <v-cate :item="may_tinh" nameCate="Máy tính"></v-cate>
             <div class="my-2"></div>
             <v-cate :item="san_pham" nameCate="Sản phẩm và công nghệ"></v-cate>
+            <div style="display: flex; justify-content: end" class="mt-3">
+              <v-pagination :length="3" disabled></v-pagination>
+            </div>
           </v-col>
           <v-col cols="3" class="mt-3">
-            <v-banner></v-banner>
+            <v-banner title="Chủ đề được quan tâm" :x="1" :y="6"></v-banner>
             <div style="margin-top: 50px"></div>
-            <v-banner></v-banner>
+            <v-banner title="Chủ đề được yêu thích" :x="7" :y="12"></v-banner>
           </v-col>
         </v-row>
       </v-container>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 import VBanner from "../components/home/vBanner.vue";
 import vBoxTitle from "../components/home/vBoxTitle.vue";
 import VCate from "../components/home/vCate.vue";
@@ -86,12 +86,44 @@ const san_pham_mapper = [
   },
 ];
 
+const templateBanner = [
+  {
+    img:
+      "https://cdn.tgdd.vn/Files/2021/03/04/1332567/iphone-13-pro-du-kien-se-co-ong-kinh-sieu-rong-duoc-cai-tien-voi-tinh-nang-on-dinh-dich-chuyen-cam-bien-sensor-shift-va-tu-dong-lay-net-1.jpg",
+    title: "Iphone 13 đang trở thành xu thế",
+    name: "Nguyễn Văn A",
+    time: "3 giờ trước",
+  },
+  {
+    img:
+      "https://fptshop.com.vn/uploads/originals/2017/11/22//636469584174032504_tim-hieu-cong-nghe-ai-1.jpg",
+    title: "Sự phát triển của AI, tương lai cho sự hiện đại",
+    name: "Trần Văn B",
+    time: "1 giờ trước",
+  },
+  {
+    img:
+      "https://img.global.news.samsung.com/global/wp-content/uploads/2021/08/galaxy_zfold3_zflip35g_main_kv.jpg",
+    title: "Sự phát triển của Smartphone",
+    name: "Lê Thị C",
+    time: "20 giờ trước",
+  },
+  {
+    img:
+      "https://static.lag.vn/upload/news/21/06/22/chronic_fatigue_syndrome-e1555827430379_SHSR.jpg?w=800&encoder=wic&subsampling=444",
+    title: "Bách khoa 96 rẽ ngang sang làm IT",
+    name: "IT BK 96",
+    time: "10 giờ trước",
+  },
+];
+
 export default {
   components: { vBoxTitle, VCate, VBanner },
   name: "Home",
   data: () => ({
     may_tinh: [],
     san_pham: [],
+    banners: templateBanner,
   }),
   mounted() {
     this.setLoading(true);
@@ -129,9 +161,7 @@ export default {
   },
   methods: {
     ...mapActions("loading", ["setLoading"]),
-    getMayTinh(){
-      
-    }
+    getMayTinh() {},
   },
 };
 </script>

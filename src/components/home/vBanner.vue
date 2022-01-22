@@ -5,10 +5,10 @@
       class="align-center"
     >
       <p style="color: rgba(255, 255, 255, 0.85); margin: 0" class="ml-2">
-        Chủ đề được quan tâm
+        {{ title }}
       </p>
     </v-row>
-    <v-row v-for="n in 6" :key="n" class="px-4" style="background: #ffffff">
+    <v-row v-for="n in y - x" :key="n" class="px-4" style="background: #ffffff">
       <v-col cols="6">
         <div class="line-text">
           Ngành y tế trong mùa dịch ảnh hưởng nặng nề, công nghệ nào có thể
@@ -20,8 +20,8 @@
         ><v-img
           contain
           class="grey darken-4"
-          lazy-src="https://picsum.photos/id/11/10/6"
-          src="https://picsum.photos/id/11/500/300"
+          :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
+          :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
         ></v-img>
       </v-col>
     </v-row>
@@ -29,7 +29,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["title", "x", "y"],
+};
 </script>
 
 <style lang="scss" scoped>

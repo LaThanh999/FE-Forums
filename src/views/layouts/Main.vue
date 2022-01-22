@@ -48,6 +48,23 @@
             <div>Chính sách</div>
             <div>Trợ giúp</div>
           </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-around;
+              align-items: center;
+            "
+            class="text-footer mt-6"
+          >
+            <v-avatar size="100">
+              <img src="../../assets/logoForums.svg" alt="Forums" />
+            </v-avatar>
+            <div>
+              <div>Diễn đàn công nghệ</div>
+              <div>Môn UI KHTN</div>
+              <div>2021-2022</div>
+            </div>
+          </div>
         </v-col>
       </v-footer>
     </v-main>
@@ -58,7 +75,7 @@
 <script>
 import VSideBar from "../../components/sideBar/vSideBar";
 import VNavBar from "../../components/navBar/vNavBar";
-import VLoading from '../../components/vLoading.vue';
+import VLoading from "../../components/vLoading.vue";
 export default {
   name: "Main",
   components: { VNavBar, VSideBar, VLoading },
