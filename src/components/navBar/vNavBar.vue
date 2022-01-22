@@ -49,7 +49,7 @@ export default {
     },
     _onClickToAdmin() {
       const url =
-        "https://fe-forumst-admin.netlify.app/access/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NTdGF1cyI6MCwiYWNjSWQiOjEsImlhdCI6MTY0MjI3NDU1MiwiZXhwIjoxNjQyMzYwOTUyfQ.bdSi-VfFvWnx69L3WIrVzLZvJ0M4H6mlhQbWvVodLtw/1/2DNrlmxAYgrni4ysV2Zbb4rOkbtaT0so29KFKSYAwpc4w8Jggzoo0LEsfPOFcSkY3UrGT3DP299C9RAEepxEGC1QBSdRkwJrIIQ1";
+        "https://fe-forumst-admin.netlify.app/access/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NTdGF1cyI6MCwiYWNjSWQiOjEsImlhdCI6MTY0Mjg1NTA4MywiZXhwIjoxNjQyOTQxNDgzfQ.JQdxAoKmmqKSIC-iM0sY6n4u7DGJBLZHjO9jQ6lqUdg/1/HWex8Y66sbtadvEhKPIFmedGWfOXvgSg5faUkEc5DZutK80P7J7P1htA0es6X3HDKwNW8FJL5hSa222Fe7xHP0UZ5ZnKwCJYEcsP";
       window.location.href = url;
     }
   },
