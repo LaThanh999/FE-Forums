@@ -1,29 +1,37 @@
 <template>
-  <v-img
-    height="200px"
-    src="https://vnn-imgs-f.vgcloud.vn/2021/08/19/00/iphone-13-pro-voi-mau-sunset-gold-du-bao-se-gay-sot-1.jpg"
-  >
-    <div class="box">
-      <div class="mb-3 text1">Iphone 13 đang trở nên hot hòn hợt</div>
-      <v-row class="align-center">
-        <v-icon color="#EFD0A2" class="ml-2">mdi-account</v-icon>
-        <div class="text2 ml-3">Nguyễn Văn A</div>
-      </v-row>
-      <div class="mt-3 text3">3 giờ trước</div>
-    </div>
-  </v-img>
+  <v-card @click="toggle">
+    <template slot="progress">
+      <v-progress-linear
+        color="deep-purple"
+        height="10"
+        indeterminate
+      ></v-progress-linear>
+    </template>
+
+    <v-img height="200" :src="post.img"></v-img>
+    <v-card-text>
+      <div class="box">
+        <div class="mb-5 text4">{{ post.title }}</div>
+        <v-row class="align-center">
+          <v-icon color="black" class="ml-2">mdi-account</v-icon>
+          <div class="text5 ml-3">{{ post.name }}</div>
+        </v-row>
+        <div class="mt-5 text5">{{ post.time }}</div>
+      </div>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["active", "toggle", "post"],
+};
 </script>
 
 <style lang="scss" scoped>
 .box {
   display: flex;
-  padding: 20px;
   flex-direction: column;
-  margin-top: 50px;
 }
 .text1 {
   font-family: Roboto;
@@ -45,5 +53,19 @@ export default {};
   font-weight: bold;
   font-size: 18px;
   color: #efd0a2;
+}
+.text4 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  color: #2c553c;
+}
+.text5 {
+  font-family: Lato;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  color: #000000;
 }
 </style>

@@ -36,11 +36,11 @@
         <v-col cols="5">
           <div class="text4">{{ temp.content }}</div>
           <v-row>
-            <v-col cols="4" style="color: #000000; display: flex">
+            <v-col cols="5" style="color: #000000; display: flex">
               <v-icon>mdi-account</v-icon>
               <div>{{ temp.name }}</div>
             </v-col>
-            <v-col cols="8" style="color: #000000; display: flex">
+            <v-col cols="7" style="color: #000000; display: flex">
               <v-icon>mdi-clock</v-icon>
               <div>{{ temp.date }} {{ temp.time }}</div>
             </v-col>
@@ -102,7 +102,7 @@ export default {
   font-weight: bold;
   font-size: 14px;
   text-align: right;
-  color: #e01a1a;
+  color: #2c553c;
 }
 .text4 {
   font-style: normal;
