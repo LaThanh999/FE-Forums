@@ -1,6 +1,6 @@
 # fe-hotel-managementttt
 
-## Project setupp
+## Project setup
 ```
 yarn install
 ```
