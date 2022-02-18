@@ -12,7 +12,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    config.headers["X-API-Key"] = "b112a4d0";
+    config.headers["X-API-Key"] = "b112a5ed";
     return config;
   },
   (err) => {
