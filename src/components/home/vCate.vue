@@ -19,7 +19,7 @@
           @click="_clickToThread(temp)"
         >
           <v-icon class="mr-2">mdi-air-filter</v-icon>
-          <p class="text1">{{ temp.body }}</p>
+          <p class="text1">{{ temp.catName }}</p>
         </v-col>
         <v-col cols="1">
           <div class="text3">
@@ -42,7 +42,7 @@
             </v-col>
             <v-col cols="7" style="color: #000000; display: flex">
               <v-icon>mdi-clock</v-icon>
-              <div>{{ temp.date }} {{ temp.time }}</div>
+              <div>{{ temp.date }} {{ temp.createDate }}</div>
             </v-col>
           </v-row>
         </v-col>
@@ -59,8 +59,7 @@ export default {
     ...mapActions("forums", ["setThread"]),
     _clickToThread(val) {
       this.setThread(val);
-      console.log(this);
-      this.$router.push({ path: `thread`, query: { id: val.id } });
+      this.$router.push({ path: `thread`, query: { id: val.catID } });
     },
   },
 };

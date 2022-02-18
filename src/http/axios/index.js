@@ -1,7 +1,8 @@
 import axios from "axios";
 import Vue from "vue";
 
-const baseURL = "https://my.api.mockaroo.com/";
+// const baseURL = "https://my.api.mockaroo.com/";
+const baseURL = "https://forumwebapp1.herokuapp.com/";
 
 const instance = axios.create({
   baseURL,
@@ -12,7 +13,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    config.headers["X-API-Key"] = "b112a5ed";
+    // config.headers["X-API-Key"] = "b112a5ed";
     return config;
   },
   (err) => {

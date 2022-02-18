@@ -12,7 +12,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="9">
+          <v-col cols="9" style="min-height: 400px">
             <v-row>
               <v-col cols="6"></v-col>
               <v-col cols="3">
@@ -32,7 +32,7 @@
                 ></v-autocomplete>
               </v-col>
             </v-row>
-            <v-box-thread></v-box-thread>
+            <v-box-thread :threads="threads"></v-box-thread>
           </v-col>
           <v-col cols="3" class="mt-3">
             <v-banner></v-banner>
@@ -44,9 +44,10 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 import VBanner from "../components/home/vBanner.vue";
 import VBoxThread from "../components/thread/vBoxThread.vue";
+import { mapActions } from "vuex";
 
 export default {
   components: { VBanner, VBoxThread },
@@ -63,9 +64,31 @@ export default {
         disabled: true,
       },
     ],
+    threads: [],
   }),
+  mounted() {
+    // console.log(this.$route.query.id);
+    this.setLoading(true);
+    this.axios
+      .get(
+        `/unauthorized-api/thread/list-thread-by-cat?page=1&limit=10&category=${this.$route.query.id}`
+      )
+      .then(({ data: { ListThread } }) => {
+        console.log(ListThread);
+        this.threads = ListThread;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        this.setLoading(false);
+      });
+  },
   computed: {
-    ...mapState("forums", ["threads"]),
+    // ...mapState("forums", ["threads"]),
+  },
+  methods: {
+    ...mapActions("loading", ["setLoading"]),
   },
 };
 </script>
