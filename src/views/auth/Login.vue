@@ -1,11 +1,18 @@
 <template>
-  <section class="section-container container">
+  <section class="section-container">
     <v-row class="signin">
-      <v-col cols="6" class="left"> </v-col>
-      <v-col cols="6" class="right flex-align-center">
+      <v-col cols="12" class="right flex-align-center">
         <div>
-          <h1>Welcome to hotel admin</h1>
-          <h2 style="margin-top: 10px">LOGIN</h2>
+          <h1></h1>
+          <span
+            style="
+              margin-bottom: 20px;
+              font-size: 55px;
+              color: #38761d;
+              text-align: center;
+            "
+            >Đăng nhập</span
+          >
           <v-form
             ref="form"
             @submit.prevent="submit({ username, password })"
@@ -14,21 +21,17 @@
           >
             <v-text-field
               outlined
-              label="Username"
-              background-color="#E3F2FD"
+              label="Email"
               color="#424242"
-              rounded
               :counter="40"
               :rules="usernameRules"
               required
               v-model="username"
             ></v-text-field>
             <v-text-field
-              label="Password"
+              label="Mật khẩu"
               :type="showPass ? 'text' : 'password'"
               outlined
-              background-color="#E3F2FD"
-              rounded
               color="#424242"
               :counter="20"
               :rules="passwordRules"
@@ -39,12 +42,23 @@
               "
               @click:append="clickShowPass"
             ></v-text-field>
-            <div class="d-flex justify-center">
-              <v-btn :loading="loading" type="submit" color="#E0E0E0" rounded>
-                Login
-              </v-btn>
-            </div>
+            <v-btn
+              :loading="loading"
+              type="submit"
+              block
+              color="#38761D"
+              class="ma-2 white--text"
+            >
+              Login
+            </v-btn>
           </v-form>
+          <div style="display: flex; flex-direction: column; align-items: end">
+            <div style="font-size: 14px; color: #38761d">Quên mật khẩu</div>
+            <div style="font-size: 14px">
+              Chưa có tài khoản <span style="color: #38761Ds">Đăng ký</span>
+            </div>
+          </div>
+          <div style="display"></div>
         </div>
       </v-col>
     </v-row>
@@ -57,17 +71,15 @@ export default {
   components: {},
   data: () => ({
     valid: true,
-    username: "admin@localhost.com",
-    password: "Nodecore@2",
+    username: "",
+    password: "",
     usernameRules: [
-      (v) => !!v || "Username is required",
-      (v) =>
-        (v && v.length <= 40) || "Username must be less than 20 characters",
+      (v) => !!v || "Email không được để trống",
+      (v) => (v && v.length <= 40) || "Không được lớn hơn 40 kí tự",
     ],
     passwordRules: [
-      (v) => !!v || "Password is required",
-      (v) =>
-        (v && v.length <= 20) || "Password must be less than 20 characters",
+      (v) => !!v || "Password không được để trống",
+      (v) => (v && v.length <= 20) || "Password không được lớn hơn 20 kí tự",
     ],
     loading: false,
     showPass: false,
@@ -85,18 +97,50 @@ export default {
     resetValidation() {
       this.$refs.form.resetValidation();
     },
-    async submit(data) {
+    async submit({ username, password }) {
       this.$refs.form.validate();
       if (this.$refs.form.validate()) {
         this.loading = true;
-        try {
-          await this.login(data);
-          this.$router.push("/");
-        } catch (err) {
-          this.$toast.error(err.data.message);
-        } finally {
-          this.loading = false;
-        }
+        this.axios
+          .post(`/unauthorized-api/auth/login`, {
+            email: username,
+            passWord: password,
+          })
+          .then(
+            ({
+              data: {
+                data: { accessToken, refreshToken, user },
+              },
+            }) => {
+              localStorage.setItem("token", accessToken);
+              localStorage.setItem("userId", user.accId);
+              localStorage.setItem("rfToken", refreshToken);
+              const type = this.$route.query.type;
+              if (type !== 0) {
+                this.$router.push({
+                  name: `Home`,
+                });
+              } else {
+                const url = `https://fe-forumst-admin.netlify.app/access/${accessToken}/${user.accId}/${refreshToken}`;
+                window.location.href = url;
+              }
+            }
+          )
+          // .then(res=>{
+          //   console.log(res);
+          // })
+          .catch(
+            ({
+              response: {
+                data: { errorMessage },
+              },
+            }) => {
+              this.$toast.error(errorMessage);
+            }
+          )
+          .finally(() => {
+            this.loading = false;
+          });
       }
     },
     clickShowPass() {
@@ -107,15 +151,15 @@ export default {
 </script>
 <style lang="scss" scoped>
 .section-container {
-  background: #fff;
+  background: #dddddd;
   height: 100%;
   position: relative;
   .signin {
     padding: 0;
-    width: 55%;
+    width: 40%;
     max-width: 1000px;
     margin: auto;
-    min-height: 600px;
+    min-height: 400px;
     box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
     position: fixed;
     top: 50%;
@@ -132,8 +176,8 @@ export default {
     }
     .right {
       box-sizing: border-box;
-      background: #1976d2;
-      color: #fff;
+      background: #fff;
+      color: #333;
       h2 {
         text-align: center;
         margin-bottom: 30px;

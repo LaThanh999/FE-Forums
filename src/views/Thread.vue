@@ -32,7 +32,14 @@
                 ></v-autocomplete>
               </v-col>
             </v-row>
-            <v-box-thread :threads="threads"></v-box-thread>
+            <div v-if="threads.length <= 0">
+              <v-alert border="right" color="blue-grey" dark>
+                Chưa có bài đăng
+              </v-alert>
+            </div>
+            <div v-else>
+              <v-box-thread :threads="threads"></v-box-thread>
+            </div>
           </v-col>
           <v-col cols="3" class="mt-3">
             <v-banner></v-banner>
@@ -67,7 +74,11 @@ export default {
     threads: [],
   }),
   mounted() {
-    // console.log(this.$route.query.id);
+    if (!this.$route.query.id) {
+      this.$router.push({
+        name: `Home`,
+      });
+    }
     this.setLoading(true);
     this.axios
       .get(

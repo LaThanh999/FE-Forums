@@ -1,3 +1,4 @@
+l
 <template>
   <div>
     <v-item-group>
@@ -83,13 +84,21 @@ export default {
   components: { vBoxTitle, VCate, VBanner },
   name: "Home",
   data: () => ({
-    may_tinh: [],
-    san_pham: [],
     category: [],
     banners: templateBanner,
+    userThread: [],
   }),
   mounted() {
     this.setLoading(true);
+    this.axios
+      .get("https://my.api.mockaroo.com/user-thread.json", {
+        headers: {
+          "X-API-Key": "74e98be0",
+        }
+      })
+      .then(({ data }) => {
+        this.userThread = data;
+      });
     this.axios
       .get("/unauthorized-api/home/list-cat-home")
       .then(({ data: { paginationlist } }) => {
@@ -104,7 +113,6 @@ export default {
   },
   methods: {
     ...mapActions("loading", ["setLoading"]),
-    getMayTinh() {},
   },
 };
 </script>

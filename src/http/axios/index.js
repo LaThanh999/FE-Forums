@@ -13,6 +13,10 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers["authorization"] = token;
+    }
     // config.headers["X-API-Key"] = "b112a5ed";
     return config;
   },

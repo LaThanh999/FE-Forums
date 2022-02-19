@@ -1,19 +1,19 @@
 <template>
   <div>
     <v-row class="align-center justify-center box-title">
-      <v-col cols="10">
+      <v-col cols="9">
         <div style="font-size: 24px; color: #ffffff">
           {{ post.body }}
         </div>
       </v-col>
-      <v-col cols="2">
+      <v-col cols="3">
         <div style="font-size: 12px; color: #ffffff">
-          {{ post.date }} {{ post.time }}
+          {{ post.date }} {{ post.thread_date }}
         </div>
       </v-col>
     </v-row>
     <v-row class="box-body" style="min-height: 200px">
-      <div v-html="post.contentFull"></div>
+      <div v-html="post.thread_title"></div>
     </v-row>
     <v-row class="box-body box-body1 align-center justify-center">
       <v-col cols="9">

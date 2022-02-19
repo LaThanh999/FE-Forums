@@ -1,17 +1,17 @@
 <template>
   <div>
     <v-row class="align-center justify-center box-title">
-      <v-col cols="10">
+      <v-col cols="9">
         <div style="font-size: 18px; color: #ffffff">Trả lời</div>
       </v-col>
-      <v-col cols="2">
+      <v-col cols="3">
         <div style="font-size: 12px; color: #ffffff">
-          {{ post.date }} {{ post.time }}
+          {{ post.date }}
         </div>
       </v-col>
     </v-row>
     <v-row class="box-body" style="min-height: 100px">
-      <div v-html="post.cmt"></div>
+      <div v-html="post.body"></div>
     </v-row>
   </div>
 </template>

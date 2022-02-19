@@ -18,7 +18,11 @@
           </v-row>
           <div>{{ item.acc_full_name }}</div>
         </v-col>
-        <v-col cols="8" style="cursor: pointer" @click="_clickToPage(item)">
+        <v-col
+          cols="8"
+          style="cursor: pointer"
+          @click="_clickToPage(item.thread_id)"
+        >
           <div class="text4">{{ item.thread_title }}</div>
           <v-row>
             <v-col cols="12" style="color: #000000; display: flex">
@@ -96,11 +100,12 @@ export default {
     // ...mapActions("forums", ["setPost"]),
     // ...mapActions("loading", ["setLoading"]),
     _clickToPage(val) {
-      this.setPost(val);
-      // this.$router.push({
-      //   path: `detail-thread`,
-      //   query: { id: this.threads.id, threadId: val.id },
-      // });
+      console.log(val);
+      // this.setPost(val);
+      this.$router.push({
+        path: `detail-thread`,
+        query: { threadId: val },
+      });
     },
   },
 };

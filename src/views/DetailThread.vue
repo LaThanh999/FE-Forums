@@ -33,7 +33,7 @@
                 </v-sheet>
               </v-col>
               <v-col cols="9" class="pl-0">
-                <v-box-chat :post="posts"></v-box-chat>
+                <v-box-chat :post="thread"></v-box-chat>
               </v-col>
             </v-row>
             <!-- rep cmt -->
@@ -41,21 +41,28 @@
               <v-divider color="black" class="my-10"></v-divider>
             </v-row>
             <!-- rep cmt -->
-            <v-row v-for="(item, index) in comment" :key="index">
-              <v-col cols="3" class="pr-0">
-                <v-sheet class="box-info">
-                  <v-avatar class="mb-4" color="grey darken-1" size="80">
-                    <img
-                      src="https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png"
-                      :alt="item.name"
-                  /></v-avatar>
-                  <div style="color: #ffffff">{{ item.name }}</div>
-                </v-sheet>
-              </v-col>
-              <v-col cols="9" class="pl-0">
-                <v-box-rep :post="item"></v-box-rep>
-              </v-col>
-            </v-row>
+            <div v-if="comment.length <= 0">
+              <v-alert border="right" color="blue-grey" dark>
+                Chưa có bình luận
+              </v-alert>
+            </div>
+            <div v-else>
+              <v-row v-for="(item, index) in comment" :key="index">
+                <v-col cols="3" class="pr-0">
+                  <v-sheet class="box-info">
+                    <v-avatar class="mb-4" color="grey darken-1" size="80">
+                      <img :src="item.acc_avatar" :alt="item.acc_full_name"
+                    /></v-avatar>
+                    <div style="color: #ffffff">{{ item.acc_full_name }}</div>
+                  </v-sheet>
+                </v-col>
+                <v-col cols="9" class="pl-0">
+                  <v-box-rep
+                    :post="{ body: item.post_body, date: item.post_date }"
+                  ></v-box-rep>
+                </v-col>
+              </v-row>
+            </div>
             <!-- rep cmt -->
             <v-row>
               <v-divider color="black" class="my-10"></v-divider>
@@ -90,25 +97,25 @@
 </template>
 
 <script>
-const commentsMapper = [
-  {
-    cmt: "Winner phát card đi.",
-  },
-  {
-    cmt: "Like cho chủ thớt.",
-  },
-  {
-    cmt: "Nên đợi tới năm sau, vì phụ kiện giờ mắc",
-  },
-  {
-    cmt: "Bài viết tâm huyết quá.",
-  },
-];
+// const commentsMapper = [
+//   {
+//     cmt: "Winner phát card đi.",
+//   },
+//   {
+//     cmt: "Like cho chủ thớt.",
+//   },
+//   {
+//     cmt: "Nên đợi tới năm sau, vì phụ kiện giờ mắc",
+//   },
+//   {
+//     cmt: "Bài viết tâm huyết quá.",
+//   },
+// ];
 import { mapActions, mapState } from "vuex";
 import VBanner from "../components/home/vBanner.vue";
 import VBoxChat from "../components/thread/vBoxChat.vue";
 import VBoxRep from "../components/thread/vBoxRep.vue";
-import moment from "moment";
+// import moment from "moment";
 import { VueEditor } from "vue2-editor";
 export default {
   components: { VBanner, VBoxChat, VBoxRep, VueEditor },
@@ -123,7 +130,7 @@ export default {
       {
         text: "Mục",
         disabled: false,
-        to: "/thread",
+        to: `/thread`,
       },
       {
         text: "Bài đăng",
@@ -131,43 +138,62 @@ export default {
       },
     ],
     comment: [],
+    thread: {},
     repCmt: "",
   }),
   computed: {
     ...mapState("forums", ["posts"]),
   },
   mounted() {
-    this.setLoading(true);
-    this.axios
-      .get("may-tinh.json")
-      .then(({ data }) => {
-        const result = data.map((el, index) => {
-          return { ...el, ...commentsMapper[index] };
-        });
-        // this.setThread(result[0]);
-        this.comment = result;
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        this.setLoading(false);
+    const threadId = this.$route.query.threadId;
+    if (!threadId) {
+      this.$router.push({
+        name: `Home`,
       });
+    }
+    this.init(threadId);
   },
   methods: {
     ...mapActions("loading", ["setLoading"]),
     _clickSubmit() {
       this.setLoading(true);
-      setTimeout(() => {
-        this.comment.push({
-          cmt: this.repCmt,
-          name: "Thanh La",
-          date: moment().format("DD/MM/YYYY"),
-          time: moment().format("LT"),
+      this.axios
+        .post(`/api/post/add-post`, {
+          postBody: this.repCmt,
+          postThreadId: +this.$route.query.threadId,
+        })
+        .then((res) => {
+          console.log(res);
+          this.init(+this.$route.query.threadId);
+          this.repCmt = "";
+        })
+        .catch((err) => {
+          console.log(err.response);
+        })
+        .finally(() => {
+          this.setLoading(false);
         });
-        this.repCmt = "";
-        this.setLoading(false);
-      }, 2000);
+    },
+    init(id) {
+      this.setLoading(true);
+      this.axios
+        .get(
+          `/unauthorized-api/post/get-post-by-thread?postThreadId=${id}&page=1&limit=20`
+        )
+        .then(({ data: { Thread, ListPost } }) => {
+          // const result = data.map((el) => {
+          //   return { ...el };
+          // });
+          // this.setThread(result[0]);
+          this.comment = ListPost;
+          this.thread = Thread[0];
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.setLoading(false);
+        });
     },
   },
 };
