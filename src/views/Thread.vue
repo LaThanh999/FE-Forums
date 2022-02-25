@@ -16,7 +16,12 @@
             <v-row>
               <v-col cols="6"></v-col>
               <v-col cols="3">
-                <v-btn outlined color="primary" height="40">
+                <v-btn
+                  outlined
+                  color="primary"
+                  height="40"
+                  @click="showDialog = true"
+                >
                   <v-icon> mdi-pencil </v-icon> Đăng chủ đề
                 </v-btn></v-col
               >
@@ -47,6 +52,56 @@
         </v-row>
       </v-container>
     </v-item-group>
+    <v-row justify="center">
+      <v-dialog v-model="showDialog" persistent max-width="800px">
+        <v-card>
+          <v-card-title>
+            <span class="text-h5">Thêm chủ đề</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-form
+                ref="form"
+                @submit.prevent="submit({ title, body, image })"
+                v-model="valid"
+                lazy-validation
+              >
+                <v-text-field
+                  outlined
+                  label="Tiêu đề"
+                  :rules="(v) => !!v || `Tiêu đề không được để trống`"
+                  required
+                  dense
+                  v-model="title"
+                ></v-text-field>
+                <v-textarea
+                  outlined
+                  name="input-7-4"
+                  label="Nội dung"
+                  :rules="(v) => !!v || `Nội dung không được để trống`"
+                  v-model="body"
+                ></v-textarea>
+                <v-file-input
+                  label="Hình ảnh"
+                  outlined
+                  dense
+                  accept="image/png, image/jpeg, image/bmp, image/jpg"
+                  :rules="(v) => !!v || `Hình ảnh không được để trống`"
+                  v-model="image"
+                ></v-file-input>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="primary" text @click="showDialog = false">
+                    Đóng
+                  </v-btn>
+                  <v-btn color="primary" text type="submit"> Xác nhận </v-btn>
+                </v-card-actions>
+              </v-form>
+            </v-container>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+    </v-row>
   </div>
 </template>
 
@@ -72,6 +127,11 @@ export default {
       },
     ],
     threads: [],
+    showDialog: false,
+    valid: true,
+    title: "",
+    body: "",
+    image: null,
   }),
   mounted() {
     if (!this.$route.query.id) {
@@ -79,27 +139,66 @@ export default {
         name: `Home`,
       });
     }
-    this.setLoading(true);
-    this.axios
-      .get(
-        `/unauthorized-api/thread/list-thread-by-cat?page=1&limit=10&category=${this.$route.query.id}`
-      )
-      .then(({ data: { ListThread } }) => {
-        console.log(ListThread);
-        this.threads = ListThread;
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        this.setLoading(false);
-      });
+    this.init();
   },
   computed: {
     // ...mapState("forums", ["threads"]),
   },
   methods: {
     ...mapActions("loading", ["setLoading"]),
+    init() {
+      this.setLoading(true);
+      this.axios
+        .get(
+          `/unauthorized-api/thread/list-thread-by-cat?page=1&limit=10&category=${this.$route.query.id}`
+        )
+        .then(({ data: { ListThread } }) => {
+          console.log(ListThread);
+          this.threads = ListThread;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.setLoading(false);
+        });
+    },
+    async submit({ title, body, image }) {
+      this.$refs.form.validate();
+      if (this.$refs.form.validate()) {
+        this.setLoading(true);
+        var bodyFormData = new FormData();
+        bodyFormData.append("threadTitle", title);
+        bodyFormData.append("threadCat", this.$route.query.id);
+        bodyFormData.append("postBody", body);
+        bodyFormData.append("image", image);
+        this.axios({
+          method: "post",
+          url: `/api/thread/add-thread`,
+          data: bodyFormData,
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+          .then(() => {
+            this.init();
+            this.showDialog = false;
+            this.title = "";
+            this.body = "";
+            this.image = null;
+          })
+          .catch(
+            ({
+              response: {
+                data: { errorMessage },
+              },
+            }) => {
+              this.$toast.error(errorMessage);
+            }
+          )
+          .finally(() => {
+            this.setLoading(false);
+          });
+      }
+    },
   },
 };
 </script>

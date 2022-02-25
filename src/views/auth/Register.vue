@@ -12,17 +12,27 @@
               text-align: center;
             "
           >
-            Đăng nhập
+            Đăng ký
           </h2>
           <v-form
             ref="form"
-            @submit.prevent="submit({ username, password })"
+            @submit.prevent="submit({ username, password, email })"
             v-model="valid"
             lazy-validation
           >
             <v-text-field
               outlined
               label="Email"
+              color="#424242"
+              :counter="40"
+              :rules="emailRules"
+              required
+              v-model="email"
+              type="email"
+            ></v-text-field>
+            <v-text-field
+              outlined
+              label="Username"
               color="#424242"
               :counter="40"
               :rules="usernameRules"
@@ -55,9 +65,9 @@
           </v-form>
           <div style="display: flex; flex-direction: column; align-items: end">
             <div style="font-size: 14px; color: #38761d">Quên mật khẩu</div>
-            <router-link to="/register">
+            <router-link to="/login">
               <div style="font-size: 14px">
-                Chưa có tài khoản <span style="color: #38761Ds">Đăng ký</span>
+                Đã có tài khoản <span style="color: #38761Ds">Đăng nhập</span>
               </div></router-link
             >
           </div>
@@ -76,6 +86,7 @@ export default {
     valid: true,
     username: "",
     password: "",
+    email: "",
     usernameRules: [
       (v) => !!v || "Email không được để trống",
       (v) => (v && v.length <= 40) || "Không được lớn hơn 40 kí tự",
@@ -83,6 +94,10 @@ export default {
     passwordRules: [
       (v) => !!v || "Password không được để trống",
       (v) => (v && v.length <= 20) || "Password không được lớn hơn 20 kí tự",
+    ],
+    emailRules: [
+      (v) => !!v || "Email không được để trống",
+      (v) => (v && v.length <= 40) || "Email không được lớn hơn 20 kí tự",
     ],
     loading: false,
     showPass: false,
@@ -100,38 +115,21 @@ export default {
     resetValidation() {
       this.$refs.form.resetValidation();
     },
-    async submit({ username, password }) {
+    async submit({ username, password, email }) {
       this.$refs.form.validate();
       if (this.$refs.form.validate()) {
         this.loading = true;
         this.axios
-          .post(`/unauthorized-api/auth/login`, {
-            email: username,
+          .post(`/unauthorized-api/auth/register`, {
+            email: email,
             passWord: password,
+            fullName: username,
           })
-          .then(
-            ({
-              data: {
-                data: { accessToken, refreshToken, user },
-              },
-            }) => {
-              localStorage.setItem("token", accessToken);
-              localStorage.setItem("userId", user.accId);
-              localStorage.setItem("rfToken", refreshToken);
-              const type = this.$route.query.type;
-              if (type !== 0) {
-                this.$router.push({
-                  name: `Home`,
-                });
-              } else {
-                const url = `https://fe-forumst-admin.netlify.app/access/${accessToken}/${user.accId}/${refreshToken}`;
-                window.location.href = url;
-              }
-            }
-          )
-          // .then(res=>{
-          //   console.log(res);
-          // })
+          .then(() => {
+            this.$router.push({
+              name: `Login`,
+            });
+          })
           .catch(
             ({
               response: {
