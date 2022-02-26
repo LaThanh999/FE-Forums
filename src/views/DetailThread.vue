@@ -89,7 +89,7 @@
                 >
               </div>
             </div>
-            <div style="margin: 20px">
+            <div v-else style="margin: 20px">
               <h3>Vui lòng đăng nhập để bình luận bài viết này</h3>
             </div>
           </v-col>
