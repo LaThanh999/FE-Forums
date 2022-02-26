@@ -19,7 +19,7 @@
                   <v-avatar class="mb-4" color="grey darken-1" size="80">
                     <img
                       :src="
-                        thread.thread_image ||
+                        avatarCreateThread ||
                         'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png'
                       "
                       :alt="nameCreateThread"

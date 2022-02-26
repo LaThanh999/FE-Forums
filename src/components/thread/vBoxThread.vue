@@ -55,7 +55,6 @@
         </v-col>
       </v-row>
     </div>
-    <v-pagination :length="3" margin-top="5px"></v-pagination>
   </div>
 </template>
 
