@@ -9,7 +9,7 @@
         <v-avatar>
           <img src="../../assets/logoForums.svg" alt="Forums" />
         </v-avatar>
-        <div class="mx-2">ForumsT</div>
+        <div class="mx-2" style="color: #ffffff; font-size: 22px">ForumsT</div>
       </v-list-item>
       <v-side-bar></v-side-bar>
     </v-navigation-drawer>

@@ -16,7 +16,7 @@
           <v-avatar class="mb-4" color="grey darken-1" size="60">
             <img
               :src="
-                item.thread_image ||
+                item.acc_avatar ||
                 'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png'
               "
               :alt="item.acc_full_name"
