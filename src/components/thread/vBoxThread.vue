@@ -2,7 +2,9 @@
   <div>
     <v-row class="align-center justify-center box-title">
       <v-col cols="12">
-        <div style="font-size: 24px; color: #ffffff">{{ threads.body }}</div>
+        <div style="font-size: 24px; color: #ffffff">
+          {{ nameThread || "" }}
+        </div>
       </v-col>
     </v-row>
     <div v-for="(item, index) in threads" :key="index">
@@ -18,11 +20,7 @@
           </v-row>
           <div>{{ item.acc_full_name }}</div>
         </v-col>
-        <v-col
-          cols="8"
-          style="cursor: pointer"
-          @click="_clickToPage(item.thread_id)"
-        >
+        <v-col cols="8" style="cursor: pointer" @click="_clickToPage(item)">
           <div class="text4">{{ item.thread_title }}</div>
           <v-row>
             <v-col cols="12" style="color: #000000; display: flex">
@@ -74,37 +72,25 @@ export default {
   props: ["threads"],
   data: () => ({
     threadItem: [],
+    nameThread: "",
   }),
   computed: {
     // ...mapState("forums", ["threads"]),
   },
   mounted() {
-    // this.setLoading(true);
-    // this.axios
-    //   .get("may-tinh.json")
-    //   .then(({ data }) => {
-    //     const result = data.map((el, index) => {
-    //       return { ...el, ...thread_mapper[index] };
-    //     });
-    //     // this.setThread(result[0]);
-    //     this.threadItem = [this.threads, ...result];
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   })
-    //   .finally(() => {
-    //     this.setLoading(false);
-    //   });
+    this.nameThread = localStorage.getItem("nameThread");
   },
   methods: {
     // ...mapActions("forums", ["setPost"]),
     // ...mapActions("loading", ["setLoading"]),
     _clickToPage(val) {
       console.log(val);
-      // this.setPost(val);
+      localStorage.setItem("nameCreateThread", val.acc_full_name);
+      localStorage.setItem("avatarCreateThread", val.acc_avatar);
+      localStorage.setItem("timeCreateThread", val.acc_created_date);
       this.$router.push({
         path: `detail-thread`,
-        query: { threadId: val },
+        query: { threadId: val.thread_id },
       });
     },
   },

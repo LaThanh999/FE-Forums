@@ -23,13 +23,13 @@
         </v-col>
         <v-col cols="1">
           <div class="text3">
-            {{ temp.thread }}k
+            {{ temp.thread_count }}k
             <div class="text2">thread</div>
           </div>
         </v-col>
         <v-col cols="2"
           ><div>
-            {{ temp.post }}
+            {{ temp.post_count }}
             <div class="text2">Post</div>
           </div>
         </v-col>
@@ -59,6 +59,7 @@ export default {
     ...mapActions("forums", ["setThread"]),
     _clickToThread(val) {
       this.setThread(val);
+      localStorage.setItem("nameThread", val.catName);
       this.$router.push({ path: `thread`, query: { id: val.catID } });
     },
   },

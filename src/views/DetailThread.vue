@@ -17,18 +17,16 @@
               <v-col cols="3" class="pr-0">
                 <v-sheet class="box-info">
                   <v-avatar class="mb-4" color="grey darken-1" size="80">
-                    <img
-                      src="https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png"
-                      :alt="posts.name"
+                    <img :src="avatarCreateThread" :alt="nameCreateThread"
                   /></v-avatar>
-                  <div style="color: #ffffff">{{ posts.name }}</div>
+                  <div style="color: #ffffff">{{ nameCreateThread }}</div>
                   <v-row class="ma-0 mt-2" style="color: #ffffff">
                     <v-icon color="white" class="mr-2">mdi-account</v-icon>
                     <div>User</div>
                   </v-row>
                   <v-row class="ma-0 mt-2" style="color: #ffffff">
                     <v-icon color="white" class="mr-2">mdi-clock</v-icon>
-                    <div>{{ posts.date }}</div>
+                    <div>{{ timeCreateThread }}</div>
                   </v-row>
                 </v-sheet>
               </v-col>
@@ -51,7 +49,12 @@
                 <v-col cols="3" class="pr-0">
                   <v-sheet class="box-info">
                     <v-avatar class="mb-4" color="grey darken-1" size="80">
-                      <img :src="item.acc_avatar" :alt="item.acc_full_name"
+                      <img
+                        :src="
+                          item.acc_avatar ||
+                          'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png'
+                        "
+                        :alt="item.acc_full_name"
                     /></v-avatar>
                     <div style="color: #ffffff">{{ item.acc_full_name }}</div>
                   </v-sheet>
@@ -67,7 +70,7 @@
             <v-row>
               <v-divider color="black" class="my-10"></v-divider>
             </v-row>
-            <div style="margin: 20px">
+            <div v-if="checkLogin" style="margin: 20px">
               <h4>Trả lời:</h4>
               <!-- <v-textarea
                 solo
@@ -85,6 +88,9 @@
                   >Thêm bình luận</v-btn
                 >
               </div>
+            </div>
+            <div style="margin: 20px">
+              <h3>Vui lòng đăng nhập để bình luận bài viết này</h3>
             </div>
           </v-col>
           <v-col cols="3" class="mt-3">
@@ -140,11 +146,20 @@ export default {
     comment: [],
     thread: {},
     repCmt: "",
+    checkLogin: false,
+    nameCreateThread: "",
+    avatarCreateThread: "",
+    timeCreateThread: "",
   }),
   computed: {
     ...mapState("forums", ["posts"]),
   },
   mounted() {
+    const token = localStorage.getItem("token");
+    this.nameCreateThread = localStorage.getItem("nameCreateThread");
+    this.avatarCreateThread = localStorage.getItem("avatarCreateThread") || "";
+    this.timeCreateThread = localStorage.getItem("timeCreateThread");
+    if (token) this.checkLogin = true;
     const threadId = this.$route.query.threadId;
     if (!threadId) {
       this.$router.push({
