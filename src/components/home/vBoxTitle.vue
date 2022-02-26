@@ -11,7 +11,7 @@
     <v-img height="200" :src="post.img"></v-img>
     <v-card-text>
       <div class="box">
-        <div class="mb-5 text4">{{ post.title }}</div>
+        <div class="mb-5 text4 title">{{ post.title }}</div>
         <v-row class="align-center">
           <v-icon color="black" class="ml-2">mdi-account</v-icon>
           <div class="text5 ml-3">{{ post.name }}</div>
@@ -67,5 +67,12 @@ export default {
   font-weight: bold;
   font-size: 18px;
   color: #000000;
+}
+.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 </style>

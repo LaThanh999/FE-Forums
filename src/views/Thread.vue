@@ -46,8 +46,10 @@
               <v-box-thread :threads="threads"></v-box-thread>
             </div>
           </v-col>
-          <v-col cols="3" class="mt-3">
-            <v-banner></v-banner>
+          <v-col cols="3" class="my-6">
+            <v-banner title="Chủ đề được quan tâm" :x="1" :y="4"></v-banner>
+            <div style="margin-top: 50px"></div>
+            <v-banner title="Chủ đề được yêu thích" :x="7" :y="10"></v-banner>
           </v-col>
         </v-row>
       </v-container>

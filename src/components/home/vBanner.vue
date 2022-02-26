@@ -11,9 +11,7 @@
     <v-row v-for="n in y - x" :key="n" class="px-4" style="background: #ffffff">
       <v-col cols="6">
         <div class="line-text">
-          Ngành y tế trong mùa dịch ảnh hưởng nặng nề, công nghệ nào có thể
-          Ngành y tế trong mùa dịch ảnh hưởng nặng nề, công nghệ nào có thể
-          Ngành y tế trong mùa dịch ảnh hưởng nặng nề, công nghệ nào có thể
+          {{ news[n] }}
         </div>
       </v-col>
       <v-col cols="6"
@@ -29,8 +27,31 @@
 </template>
 
 <script>
+const news = [
+  "Trước thềm MotoGP 2022 - Aprilia đã làm gì để gần hơn với hi vọng có chiến thắng đầu tiên ở MotoGP",
+  "Bằng sáng chế mới của Apple về kiểu máy Mac all-in-one",
+  "Đây là mạng 6G: chỉ mất 1 giây để gửi 1 TB dữ liệu qua khoảng cách 1 km!",
+  "Tổng hợp deal khuyến mãi 25/02",
+  "Hướng dẫn mở “Dark mode” trên Discord",
+  "Volvo dùng iPhone và Watch thay giấy, PC trong chăm sóc khách hàng",
+  "Samsung: Lượng đặt trước với dòng Galaxy S22 phá kỷ lục",
+  "Những thứ khiến mình không thích khi dùng iPhone trong hơn 1 năm qua",
+  "Có nên mua điện thoại đã qua sử dụng hay không, nhiều bạn bè hỏi mình câu này",
+  "GẤU NGA THỨC GIẤC",
+  "DeLonghi EC685 | Pha Espresso và Latte art chuẩn Ý",
+  "Trên tay Bộ sạc cáp Baseus 20W USB C: Cực kì nhỏ gọn và hỗ trợ sạc nhanh PD với mức giá chỉ 151K",
+  "Review 7 CÁCH BẢO QUẢN MACBOOK",
+  "Review Bóc hộp tai nghe Sony LinkBuds có thiết kế độc lạ",
+  "Module camera chống rung 5 trục của Oppo Find X5 Pro bự như vầy nè!",
+  "Counterpoint: Doanh thu bán iPhone chiếm gần 1 nửa thị trường smartphone toàn cầu 2021",
+  "Có nên mua điện thoại đã qua sử dụng hay không, nhiều bạn bè hỏi mình câu này",
+  "Trên tay nhanh máy lọc không khí Levoit Core 300s, Core 200s, Core mini",
+];
 export default {
   props: ["title", "x", "y"],
+  data: () => ({
+    news: news,
+  }),
 };
 </script>
 
