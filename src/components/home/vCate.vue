@@ -23,26 +23,27 @@
         </v-col>
         <v-col cols="1">
           <div class="text3">
-            {{ temp.thread_count }}k
-            <div class="text2">thread</div>
+            {{ temp.thread_count }}
+            <div class="text2">threads</div>
           </div>
         </v-col>
         <v-col cols="2"
           ><div>
             {{ temp.post_count }}
+
             <div class="text2">Post</div>
           </div>
         </v-col>
         <v-col cols="5">
-          <div class="text4">{{ temp.content }}</div>
+          <div class="text4">{{ temp.thread_title }}</div>
           <v-row>
             <v-col cols="5" style="color: #000000; display: flex">
               <v-icon>mdi-account</v-icon>
-              <div>{{ temp.name }}</div>
+              <div>{{ temp.acc_full_name }}</div>
             </v-col>
             <v-col cols="7" style="color: #000000; display: flex">
               <v-icon>mdi-clock</v-icon>
-              <div>{{ temp.date }} {{ temp.createDate }}</div>
+              <div>{{ temp.thread_date }}</div>
             </v-col>
           </v-row>
         </v-col>

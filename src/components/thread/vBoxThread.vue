@@ -12,15 +12,27 @@
         class="box-body align-center justify-center"
         v-bind:class="{ 'box-body1': index % 2 == 0 }"
       >
+        <v-col cols="1">
+          <v-avatar class="mb-4" color="grey darken-1" size="60">
+            <img
+              :src="
+                item.thread_image ||
+                'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png'
+              "
+              :alt="item.acc_full_name"
+          /></v-avatar>
+        </v-col>
+
         <v-col cols="2">
           <v-row>
             <v-col cols="12" style="color: #000000; display: flex">
               <v-icon>mdi-account</v-icon>
             </v-col>
           </v-row>
+
           <div>{{ item.acc_full_name }}</div>
         </v-col>
-        <v-col cols="8" style="cursor: pointer" @click="_clickToPage(item)">
+        <v-col cols="5" style="cursor: pointer" @click="_clickToPage(item)">
           <div class="text4">{{ item.thread_title }}</div>
           <v-row>
             <v-col cols="12" style="color: #000000; display: flex">
@@ -32,42 +44,22 @@
         <v-col cols="2">
           <div class="text2">
             Lượt thích
-            <div class="text4">{{ item.acc_like_bidder }}</div>
+            <div class="text4">{{ item.thread_total_like }}</div>
+          </div>
+        </v-col>
+        <v-col cols="2">
+          <div class="text2">
+            Lượt không thích
+            <div class="text4">{{ item.thread_total_dislike }}</div>
           </div>
         </v-col>
       </v-row>
     </div>
+    <v-pagination :length="3" margin-top="5px"></v-pagination>
   </div>
 </template>
 
 <script>
-// import { mapActions, mapState } from "vuex";
-// const thread_mapper = [
-//   {
-//     body: "Lựa chọn máy tính",
-//     content: "Xin tư vấn cấu hình máy dưới 2 củ ....",
-//     contentFull:
-//       "Điện thoại dưới 2 triệu tốt nhất 2021 tiếp theo được giới thiệu chình là chiếc Realme C3i với màn hình 6.5 inch thiết kế giọt nước tinh tế với đường viền mỏng, thanh thoát. Máy còn được trang bị cụm camera kép phía sau, hỗ trợ chụp ảnh xóa phông lung linh. Cấu hình hiệu năng máy được đánh giá ổn định cho những trải nghiệm game trung bình. ",
-//   },
-//   {
-//     body: "Lựa chọn điện thoại",
-//     content: "Máy nào phù hợp chơi liên quân ...",
-//     contentFull:
-//       "<div>Dù các game mobile cứ ra mắt như nấm mọc sau mưa tuy nhiên có vẻ có chỉ có 2 thể loại game được người Việt ưa chuộng nhất, sức sống bền bỉ nhất chính là Sinh tồn và MOBA. Và đại diện kỳ cựu nhất của thể loại game MOBA đình đám nhất không ai khác đó chính là game Liên Quân Mobile. </div><div>Có thể nói dù được ra mắt đã lâu nhưng sức nóng của Liên Quân Mobile chưa bao giờ hết, lượng người chơi trung thành và người chơi mới đều tăng đều. Và để một trong những nhu cầu phát sinh ra khi mua điện thoại mới chính là chơi được Liên Quân Mobile, nhất là các smartphone Android. </div>",
-//   },
-//   {
-//     body: "Budget 48tr max",
-//     content: "Build máy tính để làm đồ họa ... ",
-//     contentFull:
-//       "Nguyên nhân chính là do tổng thể cấu hình hoặc một vài linh kiện không đạt đủ tiêu chuẩn cấu hình dành cho công việc. Các hiện tượng phiền toái khác có thể gặp khi máy quá yếu sẽ bao gồm: Máy bị nóng, hiện tượng “tràn RAM” gây xử lý công việc chậm chạp, render sản phẩm chậm do thiếu bộ nhớ …",
-//   },
-//   {
-//     body: "Cấu hình all in đồ họa",
-//     content: "Chi phí tầm 50tr ...",
-//     contentFull:
-//       "Phần lớn hiện tượng này sẽ xảy ra do xung đột về phần mềm trong hệ thống máy tính, chủ yếu là giữa file chương trình với file hệ thống. Các chương trình không có bản quyền và hệ điều hành không có bản quyền cũng gây ra tình trạng này rất thường xuyên.",
-//   },
-// ];
 export default {
   props: ["threads"],
   data: () => ({

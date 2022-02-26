@@ -76,14 +76,16 @@
                   dense
                   v-model="title"
                 ></v-text-field>
-                <v-textarea
+                <!-- <v-textarea
                   outlined
                   name="input-7-4"
                   label="Nội dung"
                   :rules="(v) => !!v || `Nội dung không được để trống`"
                   v-model="body"
-                ></v-textarea>
+                ></v-textarea> -->
+                <vue-editor v-model="body"></vue-editor>
                 <v-file-input
+                  class="mt-4"
                   label="Hình ảnh"
                   outlined
                   dense
@@ -112,9 +114,10 @@
 import VBanner from "../components/home/vBanner.vue";
 import VBoxThread from "../components/thread/vBoxThread.vue";
 import { mapActions } from "vuex";
+import { VueEditor } from "vue2-editor";
 
 export default {
-  components: { VBanner, VBoxThread },
+  components: { VBanner, VBoxThread, VueEditor },
   name: "Home",
   data: () => ({
     breadcrumbs: [
@@ -155,7 +158,6 @@ export default {
           `/unauthorized-api/thread/list-thread-by-cat?page=1&limit=10&category=${this.$route.query.id}`
         )
         .then(({ data: { ListThread } }) => {
-          console.log(ListThread);
           this.threads = ListThread;
         })
         .catch((err) => {

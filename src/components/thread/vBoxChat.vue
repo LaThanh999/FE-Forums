@@ -3,17 +3,17 @@
     <v-row class="align-center justify-center box-title">
       <v-col cols="9">
         <div style="font-size: 24px; color: #ffffff">
-          {{ post.body }}
+          {{ post.thread_title }}
         </div>
       </v-col>
       <v-col cols="3">
         <div style="font-size: 12px; color: #ffffff">
-          {{ post.date }} {{ post.thread_date }}
+          {{ post.thread_date }}
         </div>
       </v-col>
     </v-row>
     <v-row class="box-body" style="min-height: 200px">
-      <div v-html="post.thread_title"></div>
+      <div v-html="post.thread_post_body"></div>
     </v-row>
     <v-row class="box-body box-body1 align-center justify-center">
       <v-col cols="9">

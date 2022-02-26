@@ -29,7 +29,7 @@ l
             <!-- <v-cate :item="may_tinh" nameCate="Máy tính"></v-cate>
             <div class="my-2"></div>
             <v-cate :item="san_pham" nameCate="Sản phẩm và công nghệ"></v-cate> -->
-            <div style="display: flex; justify-content: end" class="mt-3">
+            <div style="display: flex; justify-content: center" class="mt-3">
               <v-pagination :length="3" disabled></v-pagination>
             </div>
           </v-col>
@@ -94,7 +94,7 @@ export default {
       .get("https://my.api.mockaroo.com/user-thread.json", {
         headers: {
           "X-API-Key": "74e98be0",
-        }
+        },
       })
       .then(({ data }) => {
         this.userThread = data;

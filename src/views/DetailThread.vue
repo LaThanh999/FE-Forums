@@ -17,16 +17,21 @@
               <v-col cols="3" class="pr-0">
                 <v-sheet class="box-info">
                   <v-avatar class="mb-4" color="grey darken-1" size="80">
-                    <img :src="avatarCreateThread" :alt="nameCreateThread"
+                    <img
+                      :src="
+                        thread.thread_image ||
+                        'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png'
+                      "
+                      :alt="nameCreateThread"
                   /></v-avatar>
-                  <div style="color: #ffffff">{{ nameCreateThread }}</div>
+                  <div style="color: #ffffff">{{ thread.thread_title }}</div>
                   <v-row class="ma-0 mt-2" style="color: #ffffff">
                     <v-icon color="white" class="mr-2">mdi-account</v-icon>
-                    <div>User</div>
+                    <div>{{ nameCreateThread }}</div>
                   </v-row>
                   <v-row class="ma-0 mt-2" style="color: #ffffff">
                     <v-icon color="white" class="mr-2">mdi-clock</v-icon>
-                    <div>{{ timeCreateThread }}</div>
+                    <div>{{ thread.thread_date }}</div>
                   </v-row>
                 </v-sheet>
               </v-col>
@@ -59,9 +64,19 @@
                     <div style="color: #ffffff">{{ item.acc_full_name }}</div>
                   </v-sheet>
                 </v-col>
-                <v-col cols="9" class="pl-0">
+                <v-col
+                  cols="9"
+                  class="pl-0"
+                  v-bind:class="{ opacity: item.post_status == 1 }"
+                >
                   <v-box-rep
-                    :post="{ body: item.post_body, date: item.post_date }"
+                    :post="{
+                      body:
+                        item.post_status != 1
+                          ? item.post_body
+                          : item.reject_reason,
+                      date: item.post_date,
+                    }"
                   ></v-box-rep>
                 </v-col>
               </v-row>
@@ -103,20 +118,6 @@
 </template>
 
 <script>
-// const commentsMapper = [
-//   {
-//     cmt: "Winner phát card đi.",
-//   },
-//   {
-//     cmt: "Like cho chủ thớt.",
-//   },
-//   {
-//     cmt: "Nên đợi tới năm sau, vì phụ kiện giờ mắc",
-//   },
-//   {
-//     cmt: "Bài viết tâm huyết quá.",
-//   },
-// ];
 import { mapActions, mapState } from "vuex";
 import VBanner from "../components/home/vBanner.vue";
 import VBoxChat from "../components/thread/vBoxChat.vue";
@@ -222,5 +223,8 @@ export default {
   background: #38761d;
   height: 100%;
   padding: 20px;
+}
+.opacity {
+  opacity: 0.5;
 }
 </style>

@@ -53,13 +53,13 @@ export default {
     const token = localStorage.getItem("token");
     if (token) {
       this.items = [
-        { title: "Admin", type: 3 },
+        { title: "Trang quản lý", type: 3 },
         { title: "Đăng xuất", type: 4 },
       ];
     } else {
       this.items = [
         { title: "Đăng nhập", type: 1 },
-        { title: "Admin", type: 2 },
+        { title: "Trang quản lý", type: 2 },
       ];
     }
   },
