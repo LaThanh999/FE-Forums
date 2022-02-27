@@ -61,7 +61,7 @@ const templateBanner = [
   {
     img:
       "https://fptshop.com.vn/uploads/originals/2017/11/22//636469584174032504_tim-hieu-cong-nghe-ai-1.jpg",
-    title: "Sự phát triển của AI, tương lai cho sự hiện đại",
+    title: "Sự phát triển của AI",
     name: "Trần Văn B",
     time: "1 giờ trước",
   },

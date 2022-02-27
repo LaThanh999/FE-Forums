@@ -35,7 +35,7 @@
           </div>
         </v-col>
         <v-col cols="5">
-          <div class="text4">{{ temp.thread_title }}</div>
+          <div class="text4 title-thread">{{ temp.thread_title }}</div>
           <v-row>
             <v-col cols="5" style="color: #000000; display: flex">
               <v-icon>mdi-account</v-icon>
@@ -110,5 +110,12 @@ export default {
   font-weight: bold;
   font-size: 16px;
   color: #000000;
+}
+.title-thread {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 </style>
