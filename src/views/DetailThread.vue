@@ -51,7 +51,11 @@
             </div>
             <div v-else>
               <v-row v-for="(item, index) in comment" :key="index">
-                <v-col cols="3" class="pr-0">
+                <v-col
+                  cols="3"
+                  class="pr-0"
+                  v-if="item.post_body || item.reject_reason"
+                >
                   <v-sheet class="box-info">
                     <v-avatar class="mb-4" color="grey darken-1" size="80">
                       <img
@@ -68,6 +72,7 @@
                   cols="9"
                   class="pl-0"
                   v-bind:class="{ opacity: item.post_status == 1 }"
+                  v-if="item.post_body || item.reject_reason"
                 >
                   <v-box-rep
                     :post="{
